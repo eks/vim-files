@@ -1,0 +1,47 @@
+Required packages:
+  - homebrew
+  - vim
+  - python pip
+  - powerline
+
+Installing:
+  $brew install pyhton
+  $brew install vim --with-python --with-ruby --with-perl
+  $pip install git+git://github.com/Lokaltog/powerline
+
+Ready to code
+
+Reference:
+  https://coderwall.com/p/yiot4q
+
+Included plugins:
+  ack.vim
+  colorschemes
+  ctrlp.vim
+  delimitMate
+  html5.vim
+  javascript
+  jquery
+  nerdtree
+  snipmate-snippets
+  syntastic
+  tabular
+  tlib_vim
+  vim-addon-mw-utils
+  vim-bundler
+  vim-coffee-script
+  vim-colors-solarized
+  vim-commentary
+  vim-enter-indent
+  vim-fugitive
+  vim-handlebars
+  vim-jasmine
+  vim-markdown
+  vim-rails
+  vim-repeat
+  vim-rooter
+  vim-scratch
+  vim-slim
+  vim-snipmate
+  vim-surround
+  vim-vroom
