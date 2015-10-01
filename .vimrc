@@ -1,4 +1,5 @@
-call pathogen#infect()
+execute pathogen#infect()
+" call pathogen#infect()
 
 set nocompatible
 
@@ -54,7 +55,8 @@ set scrolloff=3
 set title
 
 " No more annoying beeps
-set visualbell
+" THIS FUCKING THING WAS FUCKING THINGS ON UBUNTU
+" set visualbell
 
 " Don't make a backup before overwriting a file.
 set nobackup
@@ -107,7 +109,7 @@ autocmd BufNewFile,BufRead *_spec.rb compiler rspec
 autocmd FileType ruby,haml,eruby,yaml,html,javascript,sass,cucumber set ai sw=2 sts=2 et
 autocmd FileType python set sw=4 sts=4 et
 
-autocmd! BufRead,BufNewFile *.sass setfiletype sass 
+autocmd! BufRead,BufNewFile *.sass setfiletype sass
 
 " Set line break
 set linebreak
@@ -212,6 +214,7 @@ map <leader>cs :CtrlPClearCache<cr>\|:CtrlP spec<cr>
 map <leader>cl :CtrlPClearCache<cr>\|:CtrlP lib<cr>
 map <leader>ca :CtrlPClearCache<cr>\|:CtrlP app/assets<cr>
 map <leader>ci :CtrlPClearCache<cr>\|:CtrlP app/assets/images<cr>
+map <leader>cS :CtrlPClearCache<cr>\|:CtrlP app/services<cr>
 map <leader>cc :CtrlPClearCache<cr>\|:CtrlP<cr>
 map <leader>cg :topleft 100 :split Gemfile<cr>
 
@@ -304,6 +307,72 @@ function! <SID>SynStack()
   echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
 endfunc
 
-python from powerline.vim import setup as powerline_setup
-python powerline_setup()
-python del powerline_setup
+" python from powerline.vim import setup as powerline_setup
+" python powerline_setup()
+" python del powerline_setup
+
+" Highlight Whitespaces to not forget them
+highlight ExtraWhitespace ctermbg=red guibg=red
+match ExtraWhitespace /\s\+$/
+autocmd BufWinEnter * match ExtraWhitespace /\s\+$/
+autocmd InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
+autocmd InsertLeave * match ExtraWhitespace /\s\+$/
+autocmd BufWinLeave * call clearmatches()
+
+" Show whitespaces as dots and End of Line as ¬
+" set listchars=eol:¬,trail:·
+set listchars=trail:·
+set list
+
+" Removes trailing spaces
+function! TrimWhiteSpace()
+    %s/\s\+$//e
+endfunction
+
+nnoremap <silent> <Leader>rts :call TrimWhiteSpace()<CR>
+
+autocmd FileWritePre    * :call TrimWhiteSpace()
+autocmd FileAppendPre   * :call TrimWhiteSpace()
+autocmd FilterWritePre  * :call TrimWhiteSpace()
+autocmd BufWritePre     * :call TrimWhiteSpace()
+
+highlight OverLength ctermbg=red ctermfg=white guibg=#592929
+match OverLength /\%>80v.\+/
+set cc=80
+
+function! Incr()
+  let a = line('.') - line("'<")
+  let c = virtcol("'<")
+  if a > 0
+    execute 'normal! '.c.'|'.a."\<C-a>"
+  endif
+  normal `<
+endfunction
+vnoremap <C-a> :call Incr()<CR>
+
+" " set rtp+=/usr/local/lib/python2.7/dist-packages/powerline/bindings/vim/
+
+" " Always show statusline
+" " set laststatus=2
+
+" " Use 256 colours (Use this setting only if your terminal supports 256 colours)
+set t_Co=256
+set guifont=Ubuntu\ Mono\ derivative\ Powerline\ 11
+let g:airline_detect_paste=1
+let g:airline_inactive_collapse=1
+" let g:airline_powerline_fonts=0
+let g:airline_powerline_fonts = 1
+set noshowmode
+let g:bufferline_echo = 0
+
+if !exists('g:airline_symbols')
+  let g:airline_symbols = {}
+endif
+let g:airline_symbols.space = "\ua0"
+
+" let g:airline_extensions_whitespace_enabled = 1
+
+nnoremap <S-tab> :tabprevious<CR>
+nnoremap <tab>   :tabnext<CR>
+
+let g:move_key_modifier = 'C'
