@@ -1,5 +1,4 @@
 call plug#begin('~/.vim/plugged')
-
 " Make sure you use single quotes
 Plug 'junegunn/seoul256.vim'
 Plug 'junegunn/vim-easy-align'
@@ -11,6 +10,7 @@ Plug 'MarcWeber/vim-addon-mw-utils' | Plug 'garbas/vim-snipmate'
 
 " On-demand loading
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
+Plug 'rking/ag.vim', { 'on': 'Ag' }
 
 " Using git URL
 Plug 'https://github.com/junegunn/vim-github-dashboard.git'
@@ -22,7 +22,6 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': 'yes \| ./install' }
 Plug '~/my-prototype-plugin'
 Plug 'FelikZ/ctrlp-py-matcher'
 " Plug 'mileszs/ack.vim'
-Plug 'rking/ag'
 Plug 'tpope/vim-fugitive'
 Plug 'bling/vim-airline'
 Plug 'tpope/vim-surround'

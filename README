@@ -23,32 +23,45 @@ Reference:
 Included plugins:
   ack.vim => Replace by ag.vim (much faster)
   ag.vim
-  colorschemes
+  ctrlp-py-matcher
   ctrlp.vim
   delimitMate
+  heroku-colorscheme
   html5.vim
-  javascript
-  jquery
+  jasmine.vim
+  jquery.vim
+  mustache.vim
   nerdtree
+  rspec.vim
+  seoul256.vim
   snipmate-snippets
   syntastic
   tabular
+  tagbar
   tlib_vim
+  ultisnips
   vim-addon-mw-utils
+  vim-airline
   vim-bundler
   vim-coffee-script
   vim-colors-solarized
   vim-commentary
+  vim-easy-align
   vim-enter-indent
   vim-fugitive
-  vim-handlebars
-  vim-jasmine
+  vim-github-dashboard
+  vim-javascript
   vim-markdown
+  vim-move
+  vim-mustache-handlebars
+  vim-ragtag
   vim-rails
+  vim-rake
   vim-repeat
   vim-rooter
+  vim-rspec
   vim-scratch
-  vim-slim
   vim-snipmate
+  vim-snippets
   vim-surround
   vim-vroom
