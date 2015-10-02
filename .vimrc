@@ -1,4 +1,63 @@
-execute pathogen#infect()
+call plug#begin('~/.vim/plugged')
+
+" Make sure you use single quotes
+Plug 'junegunn/seoul256.vim'
+Plug 'junegunn/vim-easy-align'
+
+" Group dependencies, vim-snippets depends on ultisnips
+Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
+Plug 'tomtom/tlib_vim' | Plug 'garbas/vim-snipmate'
+Plug 'MarcWeber/vim-addon-mw-utils' | Plug 'garbas/vim-snipmate'
+
+" On-demand loading
+Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
+
+" Using git URL
+Plug 'https://github.com/junegunn/vim-github-dashboard.git'
+
+" Plugin outside ~/.vim/plugged with post-update hook
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': 'yes \| ./install' }
+
+" Unmanaged plugin (manually installed and updated)
+Plug '~/my-prototype-plugin'
+Plug 'FelikZ/ctrlp-py-matcher'
+Plug 'mileszs/ack.vim'
+Plug 'tpope/vim-fugitive'
+Plug 'bling/vim-airline'
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-rails'
+Plug 'kchmck/vim-coffee-script'
+Plug 'pangloss/vim-javascript'
+Plug 'skalnik/vim-vroom'
+Plug 'nono/jquery.vim'
+Plug 'altercation/vim-colors-solarized'
+Plug 'duff/vim-scratch'
+Plug 'airblade/vim-rooter'
+Plug 'tpope/vim-repeat'
+Plug 'mustache/vim-mustache-handlebars'
+Plug 'juvenn/mustache.vim'
+Plug 'tpope/vim-bundler'
+Plug 'tpope/vim-rake'
+Plug 'tpope/vim-markdown'
+Plug 'claco/jasmine.vim'
+Plug 'matze/vim-move'
+Plug 'andersoncustodio/vim-enter-indent'
+Plug 'tpope/vim-ragtag'
+Plug 'Raimondi/delimitMate'
+Plug 'tpope/vim-commentary'
+Plug 'MarcWeber/vim-addon-mw-utils'
+Plug 'majutsushi/tagbar'
+Plug 'godlygeek/tabular'
+Plug 'scrooloose/syntastic'
+Plug 'scrooloose/snipmate-snippets'
+Plug 'othree/html5.vim'
+Plug 'ctrlpvim/ctrlp.vim'
+Plug 'stulzer/heroku-colorscheme'
+
+" Add plugins to &runtimepath
+call plug#end()
+
+" execute pathogen#infect()
 " call pathogen#infect()
 
 set nocompatible
@@ -353,11 +412,11 @@ vnoremap <C-a> :call Incr()<CR>
 " " set rtp+=/usr/local/lib/python2.7/dist-packages/powerline/bindings/vim/
 
 " " Always show statusline
-" " set laststatus=2
+" set laststatus=2
 
 " " Use 256 colours (Use this setting only if your terminal supports 256 colours)
 set t_Co=256
-set guifont=Ubuntu\ Mono\ derivative\ Powerline\ 11
+" set guifont=Ubuntu\ Mono\ derivative\ Powerline\ 11
 let g:airline_detect_paste=1
 let g:airline_inactive_collapse=1
 " let g:airline_powerline_fonts=0
