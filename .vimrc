@@ -21,7 +21,8 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': 'yes \| ./install' }
 " Unmanaged plugin (manually installed and updated)
 Plug '~/my-prototype-plugin'
 Plug 'FelikZ/ctrlp-py-matcher'
-Plug 'mileszs/ack.vim'
+" Plug 'mileszs/ack.vim'
+Plug 'rking/ag'
 Plug 'tpope/vim-fugitive'
 Plug 'bling/vim-airline'
 Plug 'tpope/vim-surround'
@@ -53,6 +54,8 @@ Plug 'scrooloose/snipmate-snippets'
 Plug 'othree/html5.vim'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'stulzer/heroku-colorscheme'
+Plug 'thoughtbot/vim-rspec'
+Plug 'keith/rspec.vim'
 
 " Add plugins to &runtimepath
 call plug#end()
@@ -435,3 +438,18 @@ nnoremap <S-tab> :tabprevious<CR>
 nnoremap <tab>   :tabnext<CR>
 
 let g:move_key_modifier = 'C'
+
+" RSpec.vim mappings
+map <Leader>t :call RunCurrentSpecFile()<CR>
+map <Leader>s :call RunNearestSpec()<CR>
+map <Leader>l :call RunLastSpec()<CR>
+map <Leader>a :call RunAllSpecs()<CR>
+
+" Use Ag as default grep if available
+if executable('ag')
+  set grepprg=ag\ --nogroup\ --nocolor\ --column
+  set grepformat=%f:%l:%c:%m
+  command! -nargs=+ -bang Ag silent! grep <args> | redraw! | botright copen
+endif
+
+let g:ag_working_path_mode="r"

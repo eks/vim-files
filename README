@@ -3,11 +3,17 @@ Required packages:
   - vim
   - python pip
   - powerline
+  - silversearcher-ag (linux) the_silver_searcher (osx)
 
 Installing:
-  $brew install pyhton
-  $brew install vim --with-python --with-ruby --with-perl
-  $pip install git+git://github.com/Lokaltog/powerline
+  OSX:
+    $brew install pyhton
+    $brew install vim --with-python --with-ruby --with-perl
+    $pip install git+git://github.com/Lokaltog/powerline
+    $brew install the_silver_searcher
+
+  Linux:
+    aptitude install silversearcher-ag
 
 Ready to code
 
@@ -15,7 +21,8 @@ Reference:
   https://coderwall.com/p/yiot4q
 
 Included plugins:
-  ack.vim
+  ack.vim => Replace by ag.vim (much faster)
+  ag.vim
   colorschemes
   ctrlp.vim
   delimitMate
