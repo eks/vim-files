@@ -4,6 +4,7 @@ Required packages:
   - python pip
   - powerline
   - silversearcher-ag (linux) the_silver_searcher (osx)
+  - exuberant CTags (http://ctags.sourceforge.net/)
 
 Installing:
   OSX:
@@ -13,7 +14,13 @@ Installing:
     $brew install the_silver_searcher
 
   Linux:
-    aptitude install silversearcher-ag
+    $aptitude install silversearcher-ag
+
+    Download exuberant Ctgas from http://ctags.sourceforge.net/
+    $tar xzf ctags-5.8.tar.gz
+    $./configure
+    $make
+    $sudo make install
 
 Ready to code
 
@@ -30,7 +37,6 @@ Included plugins:
   html5.vim
   jasmine.vim
   jquery.vim
-  mustache.vim
   nerdtree
   rspec.vim
   seoul256.vim
