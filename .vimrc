@@ -41,6 +41,7 @@ Plug 'tpope/vim-bundler'
 Plug 'kchmck/vim-coffee-script'
 Plug 'altercation/vim-colors-solarized'
 Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-dispatch'
 Plug 'andersoncustodio/vim-enter-indent'
 Plug 'tpope/vim-fugitive'
 Plug 'pangloss/vim-javascript'
@@ -489,7 +490,7 @@ set showcmd
 set listchars=tab:▸\ ,extends:❯,precedes:❮,trail:· " ,eol:¬
 set showbreak=↪
 set fillchars=diff:⣿,vert:│
-" set mouse=a
+set mouse=a
 set backspace=indent,eol,start " backspace over everything in insert mode
 set nobackup " no need for backup files(use undo files instead)
 set undofile " create '.<FILENAME>.un~' for persiting undo history
@@ -503,3 +504,27 @@ set guicursor+=i:ver100-iCursor
 set guicursor+=n-v-c:blinkon0
 set guicursor+=i:blinkwait10
 
+let g:rspec_command = "Dispatch rspec {spec}"
+
+" Plugin: Golden View {{{
+let g:goldenview__enable_default_mapping = 0
+let g:goldenview__enable_at_startup = 0
+" 'e' for expand
+nnoremap R :GoldenViewResize<cr>
+" }}}
+" Plugin: MultiCursor {{{
+let g:multi_cursor_use_default_mapping=0
+let g:multi_cursor_next_key='D'
+let g:multi_cursor_prev_key='<c-p>'
+let g:multi_cursor_skip_key='<c-x>'
+let g:multi_cursor_quit_key='<c-c>'
+" }}}
+" Plugin: NerdTree {{{
+let g:NERDTreeChDirMode=2
+let g:NERDTreeAutoDeleteBuffer=1
+let g:NERDTreeHijackNetrw = 0
+let g:NERDTreeShowBookmarks = 1
+let g:NERDTreeMinimalUI = 1
+noremap <space> :NERDTreeToggle<CR>
+noremap <leader>. :NERDTreeFind<CR>
+" }}}
