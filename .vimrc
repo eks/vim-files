@@ -10,7 +10,6 @@ Plug 'MarcWeber/vim-addon-mw-utils' | Plug 'garbas/vim-snipmate'
 
 " On-demand loading
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
-Plug 'rking/ag.vim', { 'on': 'Ag' }
 
 " Using git URL
 Plug 'https://github.com/junegunn/vim-github-dashboard.git'
@@ -20,9 +19,12 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': 'yes \| ./install' }
 
 " Unmanaged plugin (manually installed and updated)
 " Plug 'mileszs/ack.vim'
+Plug 'rking/ag.vim'
+Plug 'chrisbra/csv.vim'
 Plug 'FelikZ/ctrlp-py-matcher'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'Raimondi/delimitMate'
+Plug 'zhaocai/GoldenView.Vim'
 Plug 'stulzer/heroku-colorscheme'
 Plug 'othree/html5.vim'
 Plug 'claco/jasmine.vim'
@@ -32,6 +34,7 @@ Plug 'scrooloose/snipmate-snippets'
 Plug 'scrooloose/syntastic'
 Plug 'godlygeek/tabular'
 Plug 'majutsushi/tagbar'
+Plug 'mbbill/undotree'
 Plug 'MarcWeber/vim-addon-mw-utils'
 Plug 'bling/vim-airline'
 Plug 'tpope/vim-bundler'
@@ -41,17 +44,24 @@ Plug 'tpope/vim-commentary'
 Plug 'andersoncustodio/vim-enter-indent'
 Plug 'tpope/vim-fugitive'
 Plug 'pangloss/vim-javascript'
+Plug 'reinh/vim-makegreen'
 Plug 'tpope/vim-markdown'
 Plug 'matze/vim-move'
+Plug 'terryma/vim-multiple-cursors'
 Plug 'mustache/vim-mustache-handlebars'
 Plug 'tpope/vim-ragtag'
 Plug 'tpope/vim-rails'
 Plug 'tpope/vim-rake'
 Plug 'tpope/vim-repeat'
 Plug 'airblade/vim-rooter'
-Plug 'thoughtbot/vim-rspec'
+Plug 'tpope/vim-rvm'
+" Plug 'thoughtbot/vim-rspec'
 Plug 'duff/vim-scratch'
+Plug 'tpope/vim-speeddating'
 Plug 'tpope/vim-surround'
+Plug 'kana/vim-textobj-user'
+Plug 'nelstrom/vim-textobj-rubyblock'
+Plug 'thinca/vim-visualstar'
 Plug 'skalnik/vim-vroom'
 
 " Add plugins to &runtimepath
@@ -82,6 +92,7 @@ set backspace=indent,eol,start
 set hidden
 
 " Enhanced command line commands
+set wildignore+=.git,.hg,*.o,*.a,*.class,*.mo,*.la,*.so,*.obj,*.swp,*.jpg,*.png,*.xpm,*.gif,*.pyc,*.swf,*.egg,*.jar,*.dump,*.gem
 set wildmenu
 set wildmode=list:longest
 
@@ -104,6 +115,8 @@ set number
 " Highlight match as you type
 set incsearch
 set hlsearch
+set showmatch
+set matchtime=2 " time in decisecons to jump back from matching bracket
 
 " Turn on line wrapping.
 set wrap
@@ -143,6 +156,13 @@ map <leader>tn :tabnext<cr>
 map <leader>tp :tabprevious<cr>
 map <leader>tm :tabmove
 
+" Configures VROOM
+" Detecting rails spring for rspec
+if filereadable('bin/spring')
+  let g:vroom_use_spring = 1
+else
+  let g:vroom_use_spring = 0
+end
 " Detecting rails binstubs for rspec
 if filereadable("bin/rspec")
   let g:vroom_use_binstubs = 1
@@ -150,19 +170,24 @@ else
   let g:vroom_use_binstubs = 0
 end
 
+let g:vroom_write_all = 1
+let g:vroom_use_colors = 1
+let g:vroom_clear_screen = 1
+
 " Trigger to run the whole RSpec suite
-function ClearScreenAndRunRSpec()
-  :silent !clear
-  if filereadable("bin/rspec")
-    : !./bin/rspec
-  else
-    : !bundle exec rspec
-  end
-endfunction
-map <leader>R :call ClearScreenAndRunRSpec()<cr>
+" function ClearScreenAndRunRSpec()
+"   :silent !clear
+"   if filereadable("bin/rspec")
+"     : !./bin/rspec
+"   else
+"     : !bundle exec rspec
+"   end
+" endfunction
+" map <leader>R :call ClearScreenAndRunRSpec()<cr>
 
 " For the MakeGreen plugin and Ruby RSpec
 autocmd BufNewFile,BufRead *_spec.rb compiler rspec
+nmap <leader>t :MakeGreen %<CR>
 
 "for ruby, autoindent with two spaces, always expand tabs
 autocmd FileType ruby,haml,eruby,yaml,html,javascript,sass,cucumber set ai sw=2 sts=2 et
@@ -175,7 +200,7 @@ set linebreak
 " Don't show invisibles
 set nolist
 " Invisibles for tab and end of line
-set listchars=tab:▸\ ,eol:¬
+" set listchars=tab:▸\ ,eol:¬
 
 " Blank chars colors
 highlight NonText guifg=#143c46
@@ -231,6 +256,7 @@ if has('cmdline_info')
   set showcmd                 " show partial commands in status line and
   " selected characters/lines in visual mode
 endif
+" set relativenumber "Dont know if I like it yet... =/
 
 if has('statusline')
   set laststatus=2
@@ -300,7 +326,7 @@ function! RenameFile()
     redraw!
   endif
 endfunction
-map <leader>r :call RenameFile()<cr>
+map <leader>mv :call RenameFile()<cr>
 
 augroup vimrcEx
   " Clear all autocmd in the group
@@ -366,10 +392,6 @@ function! <SID>SynStack()
   echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
 endfunc
 
-" python from powerline.vim import setup as powerline_setup
-" python powerline_setup()
-" python del powerline_setup
-
 " Highlight Whitespaces to not forget them
 highlight ExtraWhitespace ctermbg=red guibg=red
 match ExtraWhitespace /\s\+$/
@@ -380,8 +402,8 @@ autocmd BufWinLeave * call clearmatches()
 
 " Show whitespaces as dots and End of Line as ¬
 " set listchars=eol:¬,trail:·
-set listchars=trail:·
-set list
+" set listchars=trail:·
+" set list
 
 " Removes trailing spaces
 function! TrimWhiteSpace()
@@ -409,12 +431,7 @@ function! Incr()
 endfunction
 vnoremap <C-a> :call Incr()<CR>
 
-" " set rtp+=/usr/local/lib/python2.7/dist-packages/powerline/bindings/vim/
-
-" " Always show statusline
-" set laststatus=2
-
-" " Use 256 colours (Use this setting only if your terminal supports 256 colours)
+" Use 256 colours (Use this setting only if your terminal supports 256 colours)
 set t_Co=256
 " set guifont=Ubuntu\ Mono\ derivative\ Powerline\ 11
 let g:airline_detect_paste=1
@@ -436,11 +453,11 @@ nnoremap <tab>   :tabnext<CR>
 
 let g:move_key_modifier = 'C'
 
-" RSpec.vim mappings
-map <Leader>t :call RunCurrentSpecFile()<CR>
-map <Leader>s :call RunNearestSpec()<CR>
-map <Leader>l :call RunLastSpec()<CR>
-map <Leader>a :call RunAllSpecs()<CR>
+" " RSpec.vim mappings
+" map <Leader>t :call RunCurrentSpecFile()<CR>
+" map <Leader>s :call RunNearestSpec()<CR>
+" map <Leader>l :call RunLastSpec()<CR>
+" map <Leader>a :call RunAllSpecs()<CR>
 
 " Use Ag as default grep if available
 if executable('ag')
@@ -449,4 +466,40 @@ if executable('ag')
   command! -nargs=+ -bang Ag silent! grep <args> | redraw! | botright copen
 endif
 
+"Always start searching from project root instead of the cwd
 let g:ag_working_path_mode="r"
+
+let g:ctrlp_match_func = { 'match': 'pymatcher#PyMatch' }
+
+let g:multicursor_insert_maps = 1
+let g:multicursor_normal_maps = 1
+
+nmap <silent> <C-L>  <Plug>GoldenViewSplit
+
+nnoremap <leader>gs :Gstatus<cr>
+nnoremap <leader>gd :Gdiff<cr>
+nnoremap <leader>gb :Gblame<cr>
+nnoremap <leader>gw :Gwrite
+nnoremap <leader>gr :Gread
+nnoremap <leader>dp :diffput<cr>:diffupdate<cr>
+vnoremap <leader>dp :diffput<cr>:diffupdate<cr>
+nnoremap <leader>dg :diffget<cr>:diffupdate<cr>
+vnoremap <leader>dg :diffget<cr>:diffupdate<cr>
+set showcmd
+set listchars=tab:▸\ ,extends:❯,precedes:❮,trail:· " ,eol:¬
+set showbreak=↪
+set fillchars=diff:⣿,vert:│
+" set mouse=a
+set backspace=indent,eol,start " backspace over everything in insert mode
+set nobackup " no need for backup files(use undo files instead)
+set undofile " create '.<FILENAME>.un~' for persiting undo history
+set dir=.,/tmp " swap files storage, first try in the cwd then in /tmp
+set undodir=. " undo files storage, only allow the same directory
+
+highlight Cursor guifg=white guibg=black
+highlight iCursor guifg=white guibg=steelblue
+set guicursor=n-v-c:block-Cursor
+set guicursor+=i:ver100-iCursor
+set guicursor+=n-v-c:blinkon0
+set guicursor+=i:blinkwait10
+
