@@ -12,6 +12,7 @@ Installing:
     $brew install vim --with-python --with-ruby --with-perl
     $pip install git+git://github.com/Lokaltog/powerline
     $brew install the_silver_searcher
+    $brew install ctags
 
   Linux:
     $aptitude install silversearcher-ag
