@@ -20,7 +20,7 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': 'yes \| ./install' }
 " Unmanaged plugin (manually installed and updated)
 " Plug 'mileszs/ack.vim'
 Plug 'rking/ag.vim'
-Plug 'chrisbra/csv.vim'
+Plug 'chrisbra/csv.vim', { 'for': 'csv' }
 Plug 'FelikZ/ctrlp-py-matcher'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'Raimondi/delimitMate'
@@ -490,7 +490,7 @@ set showcmd
 set listchars=tab:▸\ ,extends:❯,precedes:❮,trail:· " ,eol:¬
 set showbreak=↪
 set fillchars=diff:⣿,vert:│
-set mouse=a
+" set mouse=a
 set backspace=indent,eol,start " backspace over everything in insert mode
 set nobackup " no need for backup files(use undo files instead)
 set undofile " create '.<FILENAME>.un~' for persiting undo history
@@ -512,13 +512,13 @@ let g:goldenview__enable_at_startup = 0
 " 'e' for expand
 nnoremap R :GoldenViewResize<cr>
 " }}}
-" Plugin: MultiCursor {{{
-let g:multi_cursor_use_default_mapping=0
-let g:multi_cursor_next_key='D'
-let g:multi_cursor_prev_key='<c-p>'
-let g:multi_cursor_skip_key='<c-x>'
-let g:multi_cursor_quit_key='<c-c>'
-" }}}
+" " Plugin: MultiCursor {{{
+" let g:multi_cursor_use_default_mapping=0
+" let g:multi_cursor_next_key='D'
+" let g:multi_cursor_prev_key='<c-p>'
+" let g:multi_cursor_skip_key='<c-x>'
+" let g:multi_cursor_quit_key='<c-c>'
+" " }}}
 " Plugin: NerdTree {{{
 let g:NERDTreeChDirMode=2
 let g:NERDTreeAutoDeleteBuffer=1
@@ -528,3 +528,5 @@ let g:NERDTreeMinimalUI = 1
 noremap <space> :NERDTreeToggle<CR>
 noremap <leader>. :NERDTreeFind<CR>
 " }}}
+
+noremap <leader>; :TagbarToggle<cr>
