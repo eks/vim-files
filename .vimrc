@@ -29,7 +29,7 @@ Plug 'stulzer/heroku-colorscheme'
 Plug 'othree/html5.vim'
 Plug 'claco/jasmine.vim'
 Plug 'nono/jquery.vim'
-Plug 'keith/rspec.vim'
+Plug 'keith/rspec.vim', { 'for': '*_spec.rb' }
 Plug 'scrooloose/snipmate-snippets'
 Plug 'scrooloose/syntastic'
 Plug 'godlygeek/tabular'
@@ -42,6 +42,7 @@ Plug 'kchmck/vim-coffee-script'
 Plug 'altercation/vim-colors-solarized'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-dispatch'
+Plug 'tpope/vim-eunuch'
 Plug 'andersoncustodio/vim-enter-indent'
 Plug 'tpope/vim-fugitive'
 Plug 'pangloss/vim-javascript'
@@ -62,6 +63,12 @@ Plug 'tpope/vim-speeddating'
 Plug 'tpope/vim-surround'
 Plug 'kana/vim-textobj-user'
 Plug 'nelstrom/vim-textobj-rubyblock'
+Plug 'tmux-plugins/vim-tmux'
+Plug 'tmux-plugins/vim-tmux-focus-events'
+Plug 'jgdavey/vim-turbux'
+" Plug 'benmills/vimux'
+Plug 'yunake/vimux'
+" Plug 'tpope/vim-unimpaired'
 Plug 'thinca/vim-visualstar'
 Plug 'skalnik/vim-vroom'
 
@@ -132,11 +139,12 @@ set title
 " set visualbell
 
 " Don't make a backup before overwriting a file.
-set nobackup
-set nowritebackup
+" set nobackup
+" set nowritebackup
 
 " Keep swap files in one location
-set directory=$HOME/.vim/tmp//,.
+" set directory=$HOME/.vim/tmp//,.
+" set directory=/Volumes/ramdisk/tmp//,.
 
 " Default tab width
 set tabstop=2
@@ -174,6 +182,7 @@ end
 let g:vroom_write_all = 1
 let g:vroom_use_colors = 1
 let g:vroom_clear_screen = 1
+let g:vroom_use_vimux = 1
 
 " Trigger to run the whole RSpec suite
 " function ClearScreenAndRunRSpec()
@@ -492,10 +501,11 @@ set showbreak=↪
 set fillchars=diff:⣿,vert:│
 " set mouse=a
 set backspace=indent,eol,start " backspace over everything in insert mode
-set nobackup " no need for backup files(use undo files instead)
+" set nobackup " no need for backup files(use undo files instead)
 set undofile " create '.<FILENAME>.un~' for persiting undo history
-set dir=.,/tmp " swap files storage, first try in the cwd then in /tmp
-set undodir=. " undo files storage, only allow the same directory
+set backupdir=/Volumes/ramdisk/tmp/
+set directory=/Volumes/ramdisk/tmp/ " swap files storage, first try in the cwd then in /tmp
+set undodir=/Volumes/ramdisk/tmp/ " undo files storage, only allow the same directory
 
 highlight Cursor guifg=white guibg=black
 highlight iCursor guifg=white guibg=steelblue
@@ -530,3 +540,7 @@ noremap <leader>. :NERDTreeFind<CR>
 " }}}
 
 noremap <leader>; :TagbarToggle<cr>
+
+let g:VimuxHeight = "30"
+let g:VimuxOrientation = 'v'
+let g:VimuxUseNearestPane = 0
